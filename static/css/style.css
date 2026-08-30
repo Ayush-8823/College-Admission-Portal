@@ -1,0 +1,96 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#f5f7fa;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:#0b3d91;
+}
+
+nav h2{
+color:white;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+gap:25px;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+font-weight:bold;
+}
+
+.hero{
+height:90vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(to right,#0b3d91,#1f6feb),
+url('../images/college.webp') center/cover no-repeat;
+color:white;
+text-align:center;
+}
+
+.hero h1{
+font-size:55px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:22px;
+margin-bottom:30px;
+}
+
+.hero button{
+padding:15px 40px;
+border:none;
+background:#ff9800;
+color:white;
+font-size:20px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.hero button:hover{
+background:#ff6f00;
+}
+
+/* Statistics */
+
+.stats{
+
+background:#0d6efd;
+
+color:white;
+
+}
+
+
+.stats h1{
+
+font-size:45px;
+
+font-weight:bold;
+
+}
+
+
+.stats p{
+
+font-size:20px;
+
+}

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<head>
+
+<title>Admin Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<body>
+
+
+<div class="container mt-5">
+
+
+<h1 class="text-center mb-4">
+    Admin Dashboard
+</h1>
+
+<div class="row mb-4">
+
+    <div class="col-md-6">
+        <div class="card text-bg-primary shadow">
+            <div class="card-body text-center">
+                <h5><h5>
+    <i class="fa-solid fa-book"></i>
+    Total Courses
+</h5></h5>
+                <h2>{{ total_students }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card text-bg-success shadow">
+            <div class="card-body text-center">
+                <h5><h5>
+    <i class="fa-solid fa-book"></i>
+    Total Courses
+</h5></h5>
+                <h2>{{ total_courses }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<form method="POST" action="/search" class="d-flex mb-3">
+
+<input type="text"
+name="search"
+class="form-control"
+placeholder="Search Name or Mobile">
+
+<button class="btn btn-primary ms-2">
+Search
+</button>
+
+</form>
+
+
+<a href="/export" class="btn btn-success mb-3">
+    Export to Excel
+</a>
+  
+<form method="POST" action="/search">
+...
+</form>
+
+
+<!-- CHART CODE -->
+
+<div class="container mt-4"> 
+ 
+<div class="row"> 
+ 
+<div class="col-md-6"> 
+    <h4 class="text-center"> 
+        Course Wise Students 
+    </h4> 
+ 
+    <div style="width:350px; height:300px; margin:auto;">
+    <canvas id="courseChart"></canvas>
+</div>
+</div> 
+ 
+<div class="col-md-6"> 
+    <h4 class="text-center"> 
+        Admission Overview 
+    </h4> 
+ 
+    <div style="width:650px; height:450px; margin:auto;">
+    <canvas id="admissionChart"></canvas>
+</div> 
+</div> 
+ 
+</div> 
+ 
+</div>
+
+
+
+
+<table class="table table-bordered table-striped">
+
+
+<tr>
+
+<th>ID</th>
+<th>Name</th>
+<th>Father</th>
+<th>Email</th>
+<th>Mobile</th>
+<th>DOB</th>
+<th>Course</th>
+<th>Address</th>
+<th>Photo</th>
+<th>Action</th>
+
+</tr>
+
+
+
+{% for student in students %}
+
+
+<tr>
+
+
+<td>{{student[0]}}</td>
+
+<td>{{student[1]}}</td>
+
+<td>{{student[2]}}</td>
+
+<td>{{student[3]}}</td>
+
+<td>{{student[4]}}</td>
+
+<td>{{student[5]}}</td>
+
+<td>{{student[6]}}</td>
+
+<td>{{student[7]}}</td>
+
+<td>
+
+{% if student[8] %}
+
+<img src="{{ url_for('uploaded_file', filename=student[8]) }}"
+width="100"
+height="100">
+
+{% else %}
+
+No Photo
+
+{% endif %}
+
+</td>
+
+<td>
+
+<a href="/edit/{{student[0]}}" 
+class="btn btn-warning btn-sm">
+
+<a href="/view/{{student[0]}}" 
+class="btn btn-success btn-sm">
+
+<i class="fa-solid fa-eye"></i>
+View
+
+</a>
+
+<i class="fa-solid fa-pen-to-square"></i>
+Edit
+
+<a href="/pdf/{{student[0]}}" 
+class="btn btn-primary btn-sm">
+
+<i class="fa-solid fa-file-pdf"></i>
+PDF
+
+</a>
+
+<i class="fa-solid fa-trash"></i>
+Delete
+
+</td>
+
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+
+</div>
+
+<script>
+
+const courseChart = document.getElementById('courseChart');
+
+new Chart(courseChart, {
+
+    type: 'pie',
+
+    data: {
+
+        labels: [
+            {% for course in courses %}
+            "{{ course[0] }}",
+            {% endfor %}
+        ],
+
+        datasets: [{
+            label: "Students",
+
+            data: [
+                {% for course in courses %}
+                {{ course[1] }},
+                {% endfor %}
+            ]
+        }]
+    }
+
+});
+
+
+const admissionChart = document.getElementById('admissionChart');
+
+new Chart(admissionChart, {
+
+    type: 'bar',
+
+    data: {
+
+        labels:[
+            "Total Students",
+            "Total Courses"
+        ],
+
+        datasets:[{
+
+            label:"Count",
+
+            data:[
+                {{ total_students }},
+                {{ total_courses }}
+            ]
+
+        }]
+    }
+
+});
+
+</script>
+
+
+</body>
+
+<nav class="navbar navbar-dark bg-dark">
+    
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="#">
+            🎓 College Admission Portal
+        </a>
+
+
+        <a href="/logout" class="btn btn-danger">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+</html>
+
+<script>
+
+const courseChart = document.getElementById('courseChart');
+
+new Chart(courseChart, {
+
+    type: 'pie',
+
+    data: {
+
+        labels: [
+            {% for course in courses %}
+            "{{course[0]}}",
+            {% endfor %}
+        ],
+
+        datasets: [{
+            label: 'Students',
+
+            data: [
+                {% for course in courses %}
+                {{course[1]}},
+                {% endfor %}
+            ]
+        }]
+    }
+
+});
+options: {
+    responsive: true,
+    maintainAspectRatio: false
+}
+
+
+const admissionChart = document.getElementById('admissionChart');
+
+new Chart(admissionChart, {
+
+    type: 'bar',
+
+    data: {
+
+        labels: [
+            "Total Students",
+            "Total Courses"
+        ],
+
+        datasets: [{
+
+            label: "Count",
+
+            data:[
+                {{total_students}},
+                {{total_courses}}
+            ]
+
+        }]
+    }
+
+});
+ 
+options: {
+    responsive: true,
+    maintainAspectRatio: false
+}
+
+</script>

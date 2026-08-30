@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Student</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+<h1>Edit Student Page Working</h1>
+
+<div class="container mt-5">
+
+<h1 class="text-center mb-4">
+Edit Student Details
+</h1>
+
+
+<form method="POST" action="/update/{{student[0]}}" enctype="multipart/form-data">
+
+
+<div class="mb-3">
+
+<label>Name</label>
+
+<input type="text"
+class="form-control"
+name="name"
+value="{{student[1]}}">
+
+</div>
+
+
+
+<div class="mb-3">
+
+<label>Father Name</label>
+
+<input type="text"
+class="form-control"
+name="father"
+value="{{student[2]}}">
+
+</div>
+
+
+
+<div class="mb-3">
+
+<label>Email</label>
+
+<input type="email"
+class="form-control"
+name="email"
+value="{{student[3]}}">
+
+</div>
+
+
+
+<div class="mb-3">
+
+<label>Mobile</label>
+
+<input type="text"
+class="form-control"
+name="mobile"
+value="{{student[4]}}">
+
+</div>
+
+
+
+<div class="mb-3">
+
+<label>Date of Birth</label>
+
+<input type="date"
+class="form-control"
+name="dob"
+value="{{student[5]}}">
+
+</div>
+
+
+
+<div class="mb-3">
+
+<label>Course</label>
+
+<select class="form-control" name="course">
+
+<option>{{student[6]}}</option>
+<option>BCA</option>
+<option>B.Tech</option>
+<option>BBA</option>
+<option>B.Com</option>
+<option>MCA</option>
+<option>MBA</option>
+
+</select>
+
+</div>
+
+
+
+<div class="mb-3">
+
+<label>Address</label>
+
+<textarea class="form-control"
+name="address">{{student[7]}}</textarea>
+
+</div>
+
+
+
+<div class="mb-3">
+
+<div class="mb-3">
+    <label>Current Photo</label><br>
+
+    {% if student[8] %}
+        <img src="{{ url_for('uploaded_file', filename=student[8]) }}"
+             width="120"
+             class="img-thumbnail">
+    {% else %}
+        No Photo
+    {% endif %}
+</div>
+
+<div class="mb-3">
+    <label>Upload New Photo</label>
+
+    <input
+        type="file"
+        class="form-control"
+        name="photo">
+</div>
+
+<label>Upload New Photo</label>
+
+<input type="file"
+class="form-control"
+name="photo">
+
+</div>
+
+
+<button class="btn btn-success">
+Update Student
+</button>
+
+
+<a href="/dashboard" class="btn btn-secondary">
+Back
+</a>
+
+
+</form>
+
+
+</div>
+
+
+</body>
+
+</html>
